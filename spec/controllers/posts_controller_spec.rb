@@ -26,7 +26,7 @@ RSpec.describe PostsController, type: :controller do #tells RSpec to treat the t
        get :show, {id: my_post.id}
        expect(response).to render_template :show
      end
- 
+
      it "assigns my_post to @post" do
        get :show, {id: my_post.id}
  # #18
@@ -66,12 +66,5 @@ RSpec.describe PostsController, type: :controller do #tells RSpec to treat the t
       expect(response).to redirect_to Post.last
     end
   end
-
-  # describe "GET #edit" do
-  #   it "returns http success" do
-  #     get :edit
-  #     expect(response).to have_http_status(:success)
-  #   end
-  # end
 
 end
