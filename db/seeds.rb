@@ -1,9 +1,19 @@
 require 'random_data'
 
+# Create Users
+5.times do
+  User.create!(
+# #3
+  name:     RandomData.random_name, #random_name and email are wishful coded
+  email:    RandomData.random_email,
+  password: RandomData.random_sentence
+  )
+end
+users = User.all
+
 # Create Topics
 15.times do
   Topic.create!(
-    topic:  topics.sample,
     name:         RandomData.random_sentence,
     description:  RandomData.random_paragraph
   )
@@ -13,6 +23,8 @@ topics = Topic.all
  # Create Posts
  50.times do
    Post.create!(
+     user:   users.sample,
+     topic:  topics.sample,
      title:  RandomData.random_sentence,
      body:   RandomData.random_paragraph
    )
@@ -27,7 +39,14 @@ topics = Topic.all
    )
  end
 
+ user = User.first
+ user.update_attributes!(
+   email: 'constancegobert@hotmail.fr',
+   password: 'helloworld'
+ )
+
  puts "Seed finished"
+ puts "#{User.count} users created"
  puts "#{Topic.count} topics created"
  puts "#{Post.count} posts created"
  puts "#{Comment.count} comments created"

@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+
+  has_many :posts
+
   before_save { self.email = email.downcase if email.present? } #between {} will run when the inline callback executes.
 
   validates :name, length: { minimum: 1, maximum: 100 }, presence: true
