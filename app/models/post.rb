@@ -4,6 +4,8 @@ class Post < ActiveRecord::Base
   has_many :comments, dependent: :destroy #ensures comments get deleted with the associated post
 
   default_scope { order('created_at DESC') }
+  scope :ordered_by_title, -> { order('title ASC').unscope(:order) }
+  scope :ordered_by_reverse_created_at, -> { order('created_at ASC').unscope(:order) }
 
   validates :title, length: { minimum: 5 }, presence: true
   validates :body, length: { minimum: 20 }, presence: true
