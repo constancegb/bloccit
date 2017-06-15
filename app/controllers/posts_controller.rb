@@ -2,6 +2,7 @@ class PostsController < ApplicationController
 
   before_action :require_sign_in, except: :show #redirect guest users from actions they can't do (except show)
   before_action :authorize_user, except: [:show, :new, :create] #If current_user not authorized, redirected to posts show view.
+  before_action :moderate_user, except: [:index, :show, :edit, :uptdate, :create, :new]
 
   def show
     @post = Post.find(params[:id]) #find post corresponding to the id in the params that was passed to show & assign it to @post
@@ -63,7 +64,15 @@ class PostsController < ApplicationController
 
    def authorize_user
      post = Post.find(params[:id])
-     unless current_user == post.user || current_user.admin?
+     unless current_user == post.user || current_user.admin? || current_user.moderator?
+       flash[:alert] = "You must be an admin to do that."
+       redirect_to [post.topic, post]
+     end
+   end
+
+   def moderate_user
+     post = Post.find(params[:id])
+     if current_user.moderator?
        flash[:alert] = "You must be an admin to do that."
        redirect_to [post.topic, post]
      end

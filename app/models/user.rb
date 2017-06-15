@@ -18,5 +18,5 @@ class User < ActiveRecord::Base
 
    has_secure_password #mechanism requiring password_digest attribute".
 
-   enum role: [:member, :admin]
+   enum role: [:member, :admin, :moderator]
 end
