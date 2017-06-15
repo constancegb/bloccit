@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
 
   has_many :posts
+  has_many :comments
 
   before_save { self.email = email.downcase if email.present? } #between {} will run when the inline callback executes.
   #shorthand for self.role = :member if self.role.nil?
