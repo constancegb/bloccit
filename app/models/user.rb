@@ -1,7 +1,8 @@
 class User < ActiveRecord::Base
 
-  has_many :posts
-  has_many :comments
+  has_many :posts, dependent: :destroy #dependent: :destroy ensures each model get deleted when the user is deleted
+  has_many :comments, dependent: :destroy
+  has_many :votes, dependent: :destroy
 
   before_save { self.email = email.downcase if email.present? } #between {} will run when the inline callback executes.
   #shorthand for self.role = :member if self.role.nil?

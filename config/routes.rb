@@ -6,6 +6,8 @@ Rails.application.routes.draw do
 #we use only: [] because don't want to create any /posts/:id routes, just posts/:post_id/comments routes
   resources :posts, only: [] do
      resources :comments, only: [:create, :destroy] #only add create and destroy routes (no need for more because get displayed on post show view or other)
+     post '/up-vote' => 'votes#up_vote', as: :up_vote
+     post '/down-vote' => 'votes#down_vote', as: :down_vote
   end
 
   resources :users, only: [:new, :create]
