@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+ <html>
+   <head>
+     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+   </head>
+
+   <body>
+     <h1>You favorited your post : "<%= @post.title %>"</h1>
+
+     <p>
+       <%= @post.body %>
+     </p>
+     <p>
+       You will receive updates each time your post is commented on.
+     </p>
+     <p>
+       <!-- _url generates an "absolute URL" whereas _path : relative URL (for website context)-->
+       <%= link_to "View Comment on site", topic_post_url(@post.topic, @post) %>
+     </p>
+   </body>
+
+ </html>

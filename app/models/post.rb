@@ -11,6 +11,9 @@ class Post < ActiveRecord::Base
   validates :body, length: { minimum: 20 }, presence: true
   validates :topic, presence: true
   validates :user, presence: true
+
+  after_create :notify_post_user
+
 #here, votes is an implied self.votes !
   def up_votes
     votes.where(value: 1).count
@@ -29,5 +32,13 @@ class Post < ActiveRecord::Base
     new_rank = points + age_in_days
     update_attribute(:rank, new_rank)
   end
+
+  private
+
+  def notify_post_user
+      Favorite.create(post: self, user: self.user)
+      FavoriteMailer.new_post(self).deliver_now
+  end
+
 
 end

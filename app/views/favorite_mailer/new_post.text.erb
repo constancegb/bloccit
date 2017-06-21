@@ -1,0 +1,8 @@
+You favorited your post : "<%= @post.title %>"
+ <%= "=" * (@post.title.length + 12) %>
+
+ <%= @post.body %>
+
+ You will receive updates each time your post is commented on.
+
+ Visit online at: <%= topic_post_url(@post.topic, @post) %>
