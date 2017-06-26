@@ -6,6 +6,8 @@ class Post < ActiveRecord::Base
   has_many :favorites, dependent: :destroy
 
   default_scope { order('rank DESC') }
+  #use lambda (->) to ensure user is present/signed in. If so, returns all posts. If not, uses joins method to retrieve all public topic posts.
+  scope :visible_to, -> (user) { user ? all : joins(:topic).where('topics.public' => true) }
 
   validates :title, length: { minimum: 5 }, presence: true
   validates :body, length: { minimum: 20 }, presence: true
