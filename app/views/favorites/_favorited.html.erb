@@ -1,0 +1,17 @@
+<% user.favorites.each do |favorite| %>
+<div class="media">
+   <div class="media-body">
+     <h4 class="media-heading">
+       <%= link_to favorite.post.title, topic_post_path(favorite.post.topic, favorite.post) %>
+     </h4>
+     <small>
+       submitted <%= time_ago_in_words(favorite.post.created_at) %> ago by <%= favorite.post.user.name %> <br>
+       <%= favorite.post.comments.count %> Comments
+       <%= favorite.post.votes.count %> votes
+     </small>
+   </div>
+   <div class="col-md-1">
+       <%= image_tag favorite.post.user.avatar_url(48), class: 'gravatar' %>
+     </div>
+ </div>
+ <% end %>
